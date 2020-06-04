@@ -1,0 +1,8 @@
+docker/
+analyzer/docker
+analyzer/venv/
+analyzer/.env
+analyzer/__pycache__
+
+scraper/node_modules
+scraper/.env

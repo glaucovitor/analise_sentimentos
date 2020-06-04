@@ -1,0 +1,24 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async-await-retry": "^1.0.4",
+    "chalk": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "google-play-scraper": "^7.1.2",
+    "lodash.snakecase": "^4.1.1",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.10",
+    "sequelize-auto-migrations": "git+https://github.com/flexxnn/sequelize-auto-migrations.git",
+    "sequelize-cli": "^5.5.1"
+  }
+}
