@@ -1,4 +1,4 @@
-from vaderSentiment import SentimentIntensityAnalyzer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 def vader_analyze(text):
     analyzer = SentimentIntensityAnalyzer()

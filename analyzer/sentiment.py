@@ -13,7 +13,7 @@ session = Session()
 
 reviews = session.query(Review).filter(and_(Review.app_id =='br.gov.meugovbr', Review.sentiment.is_(None))).all()
 total = len(reviews)
-print(f'Found: {total} reviews')
+print(f'Found: {total} unclassified reviews')
 # for i, review in enumerate(reviews):
 #     print(f'Starting review {review.id} - {i+1}/{total}')
 #     blob = TextBlob(review.text)

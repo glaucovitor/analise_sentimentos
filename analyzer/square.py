@@ -2,12 +2,10 @@ from datetime import datetime
 from base import Session, engine, Base
 from sqlalchemy.dialects import postgresql
 from review import Review
-from translate import concurrent_translate
-from vader_analyze import vader_analyze
 import time
 import pandas as pd
 
-CSV_PATH=''
+CSV_PATH='coleta.csv'
 Base.metadata.create_all(engine)
 session = Session()
 reviews_csv = pd.read_csv(CSV_PATH, na_filter = False)

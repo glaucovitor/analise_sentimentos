@@ -43,9 +43,7 @@ const findReviews = async (appId) => {
     console.log(`Updating ${apps.length} apps...`);
     const findReviewsPromises = [];
     apps.forEach((app, idx) => {
-        if(app.id === 'br.gov.meugovbr'){
             findReviewsPromises.push(findReviews(app.id));
-        }
     })
     const reviews = await Promise.all(findReviewsPromises);
     console.log(chalk.red(`[DATABASE] - ${new Date().toLocaleString()}] Upserting ${reviews.filter(review => review).length} reviews!`));
