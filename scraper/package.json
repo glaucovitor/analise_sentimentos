@@ -11,13 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "async-await-retry": "^1.0.4",
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
-    "google-play-scraper": "^7.1.2",
+    "google-play-scraper": "^7.1.3",
     "lodash.snakecase": "^4.1.1",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.10",
+    "sequelize": "^5.21.13",
     "sequelize-auto-migrations": "git+https://github.com/flexxnn/sequelize-auto-migrations.git",
     "sequelize-cli": "^5.5.1"
   }

@@ -18,7 +18,6 @@ const findApps = async (appId) => {
                 throttle: 100
             });
         }, {retriesMax: 4, interval: 100, exponential: true, factor: 3});
-        console.log(appDetails)
         const appDetailsSnakeCase = await Object.fromEntries(
             Object.entries(appDetails).map(([k, v]) => [snakeCase(k), v])
         );
@@ -54,9 +53,7 @@ const findApps = async (appId) => {
     console.log(`Updating ${apps.length} apps...`);
     const findAppsPromises = [];
     apps.forEach((app, idx) => {
-        if(app.id === 'br.gov.meugovbr'){
             findAppsPromises.push(findApps(app.id));
-        }
     })
     const appModels = await Promise.all(findAppsPromises);
     console.log(chalk.red(`[DATABASE] - ${new Date().toLocaleString()}] Upserting ${appModels.filter(app => app).length} apps`))

@@ -2,10 +2,7 @@ from datetime import datetime
 from base import Session, engine, Base
 from sqlalchemy.dialects import postgresql
 from review import Review
-from translate import concurrent_translate
-from vader_analyze import vader_analyze
 import time
-from textblob import TextBlob
 from sqlalchemy import and_
 from sqlalchemy.orm import load_only
 import csv
@@ -21,10 +18,8 @@ print(f'Found: {total} unclassified reviews')
 revs = []
 
 for review in reviews:
-    if review.square_term == 'usabillity':
-        review.square_term = 1
-    else:
-        review.square_term = 0
+    if review.square_term is not None:    
+        review.square_term = 1 if review.square_term == 'usabillity' else 0
     revs.append(review) 
 
 f = open('usability_reviews.csv', 'w')
