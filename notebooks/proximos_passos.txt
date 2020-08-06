@@ -1,0 +1,99 @@
+1° passo:
+antes de realizar o agrupamento, retirar:
+A) os comentários que não são usabilidade
+B) os comentários de usabilidade que são positivos
+
+eu utilizei o seguinte comando para pegar apenas os comentários de usabilidade. Falta pegar apenas os negativos
+
+documents = []
+for w in df:
+    if( w['class_name'] == 'usability'):
+        documents.append(' '.join(w['text']))
+
+
+*******************************************
+
+2° passo:
+realizar o agrupamento usando o código abaixo:
+
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import TfidfVectorizer
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler
+
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(documents)
+
+plt.figure(figsize=(10, 7))
+plt.title("Dendograma")
+dend = dendrogram(linkage(X.toarray(), method='ward'))
+
+*******************************************
+
+3° passo:
+a partir do dendograma obtido no passo anterior, verificar quantos clusters (grupos) existem (só analisar a cor)
+
+******************************
+
+4° passo:
+definido o número de clusters, realizar de fato o particionamento dos comentários nos clusters usando o seguinte código:
+
+n_clusters=4
+cluster = AgglomerativeClustering(n_clusters, affinity='euclidean', linkage='ward')
+Y = cluster.fit_predict(X.toarray())
+
+**************************
+5° passo:
+encontrar as palavras mais frequentes em cada cluster usando o codigo abaixo:
+
+centroide = {}
+for i in range(n_clusters):
+    centroide[i] = {}
+    cluster_words_indexes = np.where(Y == i)
+    for cw in cluster_words_indexes:
+        for w in cw:
+            for palavra in documents[w].split():
+                if palavra not in list(centroide[i].keys()):
+                    centroide[i][palavra] = 1
+                else:
+                    centroide[i][palavra] += 1
+            
+centroide = drop_unwanted_words(centroide, droplist) # eliminado palavras indesejadas
+
+******************************
+
+6° passo:
+listar os comentários mais importantes em cada cluster. Eu fiz o seguinte código que precisa de melhorias:
+
+
+def calculate_cluster_score(centroide, sentence, number):
+        score = 0 
+        for word in sentence:
+            if word in centroide[number]:
+                score += centroide[number][word]
+        return score
+
+
+frases_importantes = {}
+
+for i in centroide:
+    print(i)
+    frases_importantes[i] = {}
+    score_maior = 0
+    for sentence in documents:
+        score = calculate_cluster_score(centroide, sentence.split(), i)
+        if(score > score_maior):
+            frases_importantes[i]['score'] = score
+            frases_importantes[i]['texto'] = sentence
+            score_maior = score
+        
+        
+print(frases_importantes)
+
+
+
+
+
+
+
