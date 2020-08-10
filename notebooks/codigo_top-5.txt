@@ -1,0 +1,14 @@
+scored_sentences = {}
+
+for i in range(n_clusters):
+    scored_sentences[i] = []
+    cluster_words_indexes = np.where(Y == i)
+    for cw in cluster_words_indexes:
+        for w in cw:
+            score = calculate_cluster_score(centroide, documents[w].split(), i)
+            scored_sentences[i].append({'score': score, 'text': documents[w]})
+
+top_5_scores = {}
+for k in scored_sentences.keys():
+    sort = sorted(scored_sentences[k], key=lambda k: k['score'], reverse=True) 
+    top_5_scores[k] = sort[:5]
